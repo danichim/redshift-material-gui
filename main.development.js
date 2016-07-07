@@ -1,8 +1,12 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
 
+
 let menu;
 let template;
 let mainWindow = null;
+
+const menubar = require('menubar');
+const mb = menubar();
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -30,6 +34,13 @@ const installExtensions = async () => {
     }
   }
 };
+
+
+//TODO: move the app contents here at some point.
+// mb.on('ready', function ready () {
+//   console.log('app is ready')
+//   // your app code here
+// })
 
 app.on('ready', async () => {
   await installExtensions();
