@@ -1,5 +1,6 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
-
+import { start as rsStart, stop as rsStop } from './redshift';
+// const menubar = require('./redshift');
 
 let menu;
 let template;
@@ -44,7 +45,7 @@ const installExtensions = async () => {
 
 app.on('ready', async () => {
   await installExtensions();
-
+  rsStart();
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
