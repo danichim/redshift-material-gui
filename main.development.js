@@ -1,13 +1,11 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, Tray } from 'electron';
 import { start as rsStart, stop as rsStop } from './redshift';
 // const menubar = require('./redshift');
 
 let menu;
 let template;
 let mainWindow = null;
-
-const menubar = require('menubar');
-const mb = menubar();
+let tray = null
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -46,6 +44,7 @@ const installExtensions = async () => {
 app.on('ready', async () => {
   await installExtensions();
   rsStart();
+  
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
@@ -53,7 +52,6 @@ app.on('ready', async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
-
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
@@ -62,6 +60,24 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  tray = new Tray('./redshift-icon-256.png');
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'},
+    {label: 'Item3', type: 'radio', checked: true},
+    {label: 'Item4', type: 'radio'}
+  ]);
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu);
+  
+  tray.on('click', function() {
+  if (mainWindow !== null && mainWindow.isVisible()) {
+    mainWindow.hide();
+  } else if (!mainWindow.isVisible()) {
+    mainWindow.show();
+  }
+});
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
