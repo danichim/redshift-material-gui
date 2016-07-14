@@ -1,36 +1,38 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Header from '../components/Header'
-import MainSection from '../components/MainSection'
-import * as TodoActions from '../actions'
+import * as Actions from '../actions'
+import MainAppBar from '../components/MainAppBar';
+import InformationParagraph from '../components/InformationParagraph'
+import ToggleRedshift from '../components/ToggleRedshift'
 
 class App extends Component {
   render() {
-    const { todos, actions } = this.props
+    const { actions } = this.props;
     return (
       <div>
-        <Header addTodo={actions.addTodo} />
-        <MainSection todos={todos} actions={actions} />
+        <MainAppBar />
+        <InformationParagraph />
+        <ToggleRedshift toggleRedshift={actions.toggleRedshift} />
       </div>
-    )
+    );
   }
 }
 
 App.propTypes = {
-  todos: PropTypes.array.isRequired,
+  settings: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos
+    settings: state.settings
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(TodoActions, dispatch)
+    actions: bindActionCreators(Actions, dispatch)
   }
 }
 

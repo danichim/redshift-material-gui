@@ -4,13 +4,16 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './containers/App'
 import configureStore from './store/configureStore'
-// import 'todomvc-app-css/index.css'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 const store = configureStore()
 
 render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 )

@@ -1,12 +1,10 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED, TOGGLE_REDSHIFT } from '../constants/ActionTypes'
+import { toggleRedshift } from './ipc'
 
-const initialState = [
+const initialState = 
   {
-    text: 'Use Redux',
-    completed: false,
-    id: 0
+    toggleRedshift: true
   }
-]
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
@@ -24,7 +22,14 @@ export default function todos(state = initialState, action) {
       return state.filter(todo =>
         todo.id !== action.id
       )
-
+      
+    case TOGGLE_REDSHIFT:
+      let toggle = !state.toggleRedshift;
+      toggleRedshift(toggle);
+      return Object.assign({}, state, {
+        toggleRedshift: toggle,
+      });
+      
     case EDIT_TODO:
       return state.map(todo =>
         todo.id === action.id ?

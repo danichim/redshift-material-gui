@@ -1,5 +1,6 @@
 import { app, BrowserWindow, Menu, shell, Tray } from 'electron';
-import { start as rsStart, stop as rsStop } from './redshift';
+import { events } from './ipc';
+
 // const menubar = require('./redshift');
 
 let menu;
@@ -12,6 +13,7 @@ if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
 }
 
+events();
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
@@ -43,7 +45,6 @@ const installExtensions = async () => {
 
 app.on('ready', async () => {
   await installExtensions();
-  rsStart();
   
   mainWindow = new BrowserWindow({
     show: false,
