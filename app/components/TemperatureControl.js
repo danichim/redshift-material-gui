@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'material-ui/Slider';
 
 
-class TemperatureControl extends React.Component {
+export default class TemperatureControl extends React.Component {
 
   state = {
     dayTime: 6500,
@@ -10,17 +10,15 @@ class TemperatureControl extends React.Component {
   };
 
   dayTimeSlider = (e, v) => {
-    this.setState({dayTime: v});
-    console.log("Changing day time", v);
+    this.setState({ dayTime: v });
   }
 
   nightTimeSlider = (e, v) => {
-    this.setState({nightTime: v});
-    console.log("Changing night time", v);
+    this.setState({ nightTime: v });
   }
 
   render() {
-    return(
+    return (
       <div>
         <br />
         <p>Day time temperature. Currently set to {this.state.dayTime}</p>
@@ -41,6 +39,3 @@ class TemperatureControl extends React.Component {
     );
   }
 }
-
-
-export default TemperatureControl;

@@ -6,7 +6,8 @@ import MainAppBar from '../components/MainAppBar';
 import InformationParagraph from '../components/InformationParagraph'
 import ToggleRedshift from '../components/ToggleRedshift'
 import TemperatureControl from '../components/TemperatureControl'
-var injectTapEventPlugin = require("react-tap-event-plugin");
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
 injectTapEventPlugin();
 
 class App extends Component {

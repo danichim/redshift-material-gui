@@ -2,8 +2,8 @@ import { exec } from 'child_process';
 import { log, info, err } from './logger';
 
 
-const redshift = (function() {
-  var start = function() {
+const redshift = (function rsFunc() {
+  const start = function starting() {
     info("Starting")
     exec('redshift -t 2548K:6874K', (error, stdout, stderr) => {
       if (error) {
@@ -12,10 +12,10 @@ const redshift = (function() {
       }
       log(`stdout: ${stdout}`);
       log(`stderr: ${stderr}`);
-    });  
+    });
   }
 
-  var stop = function() {
+  const stop = function stopping() {
     info("Stopping Redshift using '-x' flag.")
     exec('killall -9 redshift', (error, stdout, stderr) => {
       if (error) {
@@ -24,10 +24,10 @@ const redshift = (function() {
       }
       log(`stdout: ${stdout}`);
       log(`stderr: ${stderr}`);
-    });  
+    });
   }
 
-  var kill = function() {
+  const kill = function killing() {
     exec('pkill redshift', (error, stdout, stderr) => {
       info("Killing Redshift process.");
       if (error) {
@@ -36,9 +36,9 @@ const redshift = (function() {
       }
       log(`stdout: ${stdout}`);
       log(`stderr: ${stderr}`);
-    });  
+    });
   }
-    
+
   return {
       start: start,
       stop: stop,
