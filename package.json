@@ -103,6 +103,7 @@
     "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
     "material-ui": "^0.15.1",
+    "maxmind": "^1.1.0",
     "menubar": "^4.1.2",
     "postcss": "^5.0.21",
     "react": "^15.2.1",
