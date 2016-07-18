@@ -17,7 +17,7 @@ const redshift = (function rsFunc() {
 
   const stop = function stopping() {
     info("Stopping Redshift using '-x' flag.")
-    exec('killall -9 redshift', (error, stdout, stderr) => {
+    exec('redshift -x', (error, stdout, stderr) => {
       if (error) {
         err(`exec error: ${error}`);
         return;
@@ -39,10 +39,23 @@ const redshift = (function rsFunc() {
     });
   }
 
+  const preview = function previewing(setting) {
+    info(`Previewing with the following settings: ${setting}`);
+    exec(`redshift -O ${setting}`, (error, stdout, stderr) => {
+      if (error) {
+        err(`exec error: ${error}`);
+        return;
+      }
+      log(`stdout: ${stdout}`);
+      log(`stderr: ${stderr}`);
+    });
+  }
+
   return {
-      start: start,
-      stop: stop,
-      kill: kill
+    start: start,
+    stop: stop,
+    kill: kill,
+    preview: preview
   };
 })();
 

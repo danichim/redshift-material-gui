@@ -1,29 +1,45 @@
-import { TOGGLE_REDSHIFT, NIGHTTIME_SLIDER, DAYTIME_SLIDER } from '../constants/ActionTypes'
-import { toggleRedshift } from './ipc'
+import {
+  TOGGLE_REDSHIFT,
+  NIGHTTIME_SLIDER,
+  DAYTIME_SLIDER
+} from '../constants/ActionTypes';
 
-const initialState =
-  {
-    toggleRedshift: true,
-    dayTimeSlider: 98,
-    nightTimeSlider: 1
-  }
+import {
+  toggleRedshift,
+  nightTimeSlider,
+  dayTimeSlider
+} from './ipc';
+
+const initialState = {
+  toggleRedshift: true,
+  dayTimeSlider: 98,
+  nightTimeSlider: 1
+};
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
-
     case TOGGLE_REDSHIFT:
-      let toggle = !state.toggleRedshift;
+      const toggle = !state.toggleRedshift;
+      // TODO: I'll have to remember if we are in day or night time. Interesting cases.
+      // Location service first.
       toggleRedshift(toggle);
       return Object.assign({}, state, {
         toggleRedshift: toggle,
       });
-    case NIGHTTIME_SLIDER:
-      console.log("DAY");
-      break;
+
     case DAYTIME_SLIDER:
-      console.log("NIGHT");
-      break;
+      dayTimeSlider(action.value);
+      return Object.assign({}, state, {
+        dayTimeSlider: action.value,
+      });
+
+    case NIGHTTIME_SLIDER:
+      nightTimeSlider(action.value);
+      return Object.assign({}, state, {
+        nightTimeSlider: action.value,
+      });
+
     default:
-      return state
+      return state;
   }
 }
