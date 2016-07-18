@@ -1,19 +1,19 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import routes from './routes';
-import configureStore from './store/configureStore';
-import './app.global.css';
+import 'babel-polyfill'
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import App from './containers/App'
+import configureStore from './store/configureStore'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
+const store = configureStore()
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
-);
+)
