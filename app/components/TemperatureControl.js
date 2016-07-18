@@ -1,39 +1,44 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Slider from 'material-ui/Slider';
 
 
-export default class TemperatureControl extends React.Component {
+export default class TemperatureControl extends Component {
 
-  state = {
-    dayTime: 6500,
-    nightTime: 2700
-  };
-
-  dayTimeSlider = (e, v) => {
-    this.setState({ dayTime: v });
+  static propTypes = {
+    dayTimeSlider: PropTypes.func.isRequired,
+    nightTimeSlider: PropTypes.func.isRequired
   }
 
-  nightTimeSlider = (e, v) => {
-    this.setState({ nightTime: v });
-  }
+  // state = {
+  //   dayTime: 6500,
+  //   nightTime: 2700
+  // }; 
+
+  // dayTimeSlider = (e, v) => {
+  //   this.setState({ dayTime: v });
+  // }
+  // 
+  // nightTimeSlider = (e, v) => {
+  //   this.setState({ nightTime: v });
+  // }
 
   render() {
+    const { dayTimeSlider, nightTimeSlider } = this.props;
+
     return (
       <div>
         <br />
-        <p>Day time temperature. Currently set to {this.state.dayTime}</p>
         <Slider
           defaultValue={6500}
           max={6500}
           min={2700}
-          onChange={this.dayTimeSlider}
+          onChange={dayTimeSlider}
         />
-        <p>Night time temperature. Currently set to {this.state.nightTime}</p>
         <Slider
           defaultValue={2700}
           max={6500}
           min={2700}
-          onChange={this.nightTimeSlider}
+          onChange={nightTimeSlider}
         />
       </div>
     );
